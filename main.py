@@ -10,6 +10,8 @@ from GroupTagCloud import GroupTagCloud
 from GroupMessageForwarder import GroupMessageForwarder
 from ProcessInterface import ProcessInterface
 from ActivityInfo import ActivityInfo
+from QAPlugin import QAPlugin
+from LastSpeakTime import LastSpeakTime
 import logging
 logging.basicConfig(format='%(asctime)s : %(levelname)s : %(message)s', level=logging.INFO)
 
@@ -19,12 +21,14 @@ isDebug = not True
 # Component initialization
 itchat.auto_login(True)
 plugins = [
-    GlobalTextHook({ '^ding$': 'dong', '鸭哥': '嘎？' }),
-    PaiDuiHook(),
+    GlobalTextHook({ '^ding$': 'dong', 'Ray': '啊？' }),
+    #PaiDuiHook(),
     HistoryRecorder(),
-    GroupTagCloud('/usr/share/fonts/truetype/wqy/wqy-microhei.ttc'),
-    ActivityInfo('/usr/share/fonts/truetype/wqy/wqy-microhei.ttc'),
-    GroupMessageForwarder([ '二群', '三群' ], [ 'AI二群测试中', 'AI三群测试' ])
+	QAPlugin(onlyOwerUse = True),
+    GroupTagCloud('wqy-microhei.ttc'),
+    ActivityInfo('wqy-microhei.ttc'),
+	LastSpeakTime()
+    #GroupMessageForwarder([ '二群', '三群' ], [ 'AI二群测试中', 'AI三群测试' ])
 ]
 for plugin in plugins:
     if not isinstance(plugin, ProcessInterface):
